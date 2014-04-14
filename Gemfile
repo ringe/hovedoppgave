@@ -9,7 +9,8 @@ gem 'bootstrap-sass','2.1'
 group :development, :test, :production do
 gem 'rspec-rails'
 gem 'guard-rspec', '1.2.1'
-gem "mysql2"
+#gem "mysql2"
+gem "sqlite3"
 gem 'kaminari'
 gem 'authlogic'
 gem 'declarative_authorization'

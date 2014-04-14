@@ -77,15 +77,15 @@ class Workday < ActiveRecord::Base
       year = date.year
       #hvis man sender inn en bruker id sjekker han får dette, ellers ikke.
      if user_id
-      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ?",
-                                  month, year, user_id).order("date desc")
+      days = Workday.includes(:workhours).where("date = ? AND user_id = ?",
+                                  date, user_id).order("date desc")
     else  
       if current_user.is_admin?
-      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ?",
-                                  month, year).order("date desc")
+      days = Workday.includes(:workhours).where("date = ?",
+                                  date).order("date desc")
       else
-       days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id != ?",
-                                  month, year, current_user.id).order("date desc") 
+       days = Workday.includes(:workhours).where("date = ? AND user_id != ?",
+                                  date, current_user.id).order("date desc") 
       end
     end
     new_days = []
@@ -121,8 +121,8 @@ class Workday < ActiveRecord::Base
     #henter ut måned og år fra datoen
     month = date.month
     year = date.year
-    days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ? AND approved = ? AND supervisor_hour is null",
-                                  month, year, user_id, 1).order("date desc")
+    days = Workday.includes(:workhours).where("date = ? AND user_id = ? AND approved = ? AND supervisor_hour is null",
+                                  date, user_id, 1).order("date desc")
 
     start = Array.new
     stop = Array.new

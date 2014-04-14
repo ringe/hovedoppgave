@@ -5,7 +5,7 @@ module DateModul
   #samme månde som ikke er opptatt.
   def try_date(date_string, user_id)
     date = Date.parse(date_string)
-    occupied_dates = Workday.select(:date).where("user_id = ? and Month(date) = ? and Year(date) = ?", user_id, date.month, date.year)
+    occupied_dates = Workday.select(:date).where("user_id = ? and date = ?", user_id, date)
     from = date.beginning_of_month
     to = date.end_of_month
 
